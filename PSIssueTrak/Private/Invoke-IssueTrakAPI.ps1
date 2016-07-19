@@ -22,7 +22,7 @@ function Invoke-IssueTrakAPI {
         [Parameter(Mandatory = $true)]
         [string] $RestMethod,
         [Parameter(Mandatory = $false)]
-        [string] $Body
+        [hashtable] $Body
     )
 
     $GUID = (New-Guid).Guid
@@ -53,12 +53,12 @@ function Invoke-IssueTrakAPI {
         Method = $Method
     }
 
-    Write-Verbose -Message ('Invoking the REST method: {0}' -f $ApiRequest.Uri)
-
-
     if ($Body){
-        $ApiRequest.Body = $Body
+        $ApiRequest.Body = (ConvertTo-Json $Body)
+        $ApiRequest.ContentType = "application/json"
     }
+
+    Write-Verbose -Message ('Invoking the REST method: {0}' -f $ApiRequest.Uri)
 
     Invoke-RestMethod @ApiRequest
 }
