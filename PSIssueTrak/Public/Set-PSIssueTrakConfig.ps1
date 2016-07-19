@@ -47,5 +47,5 @@ function Set-PSIssueTrakConfig {
 
     #Write the global variable and the xml
     $Global:PSIssueTrakConfig = $Existing
-    $Existing | Select -Property * | Export-Clixml -Path "$PSScriptRoot\PSIssueTrak_$($env:USERNAME).xml" -Force
+    $Existing | Select -Property * | Export-Clixml -Path "$PSScriptRoot\PSIssueTrak.xml" -Force
 }

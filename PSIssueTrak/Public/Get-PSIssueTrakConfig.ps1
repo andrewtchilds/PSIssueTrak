@@ -14,16 +14,16 @@ function Get-PSIssueTrakConfig {
         [ValidateSet("Variable","ConfigFile")]$Source = "Variable"
     )
 
-    if(-not (Test-Path -Path "$PSScriptRoot\PSIssueTrak_$($env:USERNAME).xml" -ErrorAction SilentlyContinue)) {
+    if(-not (Test-Path -Path "$PSScriptRoot\PSIssueTrak.xml" -ErrorAction SilentlyContinue)) {
         try {
-            Write-Verbose "Did not find config file $PSScriptRoot\PSIssueTrak_$($env:USERNAME).xml attempting to create"
+            Write-Verbose "Did not find config file $PSScriptRoot\PSIssueTrak.xml attempting to create"
             [pscustomobject]@{
                 Uri = $null
                 APIKey = $null
-            } | Export-Clixml -Path "$PSScriptRoot\PSIssueTrak_$($env:USERNAME).xml" -Force -ErrorAction Stop
+            } | Export-Clixml -Path "$PSScriptRoot\PSIssueTrak.xml" -Force -ErrorAction Stop
         }
         catch {
-            Write-Warning "Failed to create config file $PSScriptRoot\PSIssueTrak_$($env:USERNAME).xml: $_"
+            Write-Warning "Failed to create config file $PSScriptRoot\PSIssueTrak.xml: $_"
         }
     }    
 
@@ -31,6 +31,6 @@ function Get-PSIssueTrakConfig {
         $PSIssueTrakConfig
     }
     else {
-        Import-Clixml -Path "$PSScriptRoot\PSIssueTrak_$($env:USERNAME).xml"
+        Import-Clixml -Path "$PSScriptRoot\PSIssueTrak.xml"
     }
 }
