@@ -40,7 +40,6 @@ function Set-PSIssueTrakConfig {
 
     foreach($Key in $PSBoundParameters.Keys) {
         if(Get-Variable -name $Key) {
-            #We use add-member force to cover cases where we add props to this config...
             $Existing | Add-Member -MemberType NoteProperty -Name $Key -Value $PSBoundParameters.$Key -Force
         }
     }

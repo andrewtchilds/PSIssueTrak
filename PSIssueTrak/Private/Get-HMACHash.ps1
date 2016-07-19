@@ -5,12 +5,12 @@
 
     public class HMACHash
     {
-        public static String ComputeHMACHash(String hashKey, String messageToBeHashed)
+        public static String ComputeHMACHash(String APIKey, String messageToBeHashed)
         {
             String hashText = null;
-            Byte[] hashKeyBytes = Encoding.UTF8.GetBytes(hashKey);
+            Byte[] APIKeyBytes = Encoding.UTF8.GetBytes(APIKey);
 
-            using (HMACSHA512 hmacHashGenerator = new HMACSHA512(hashKeyBytes))
+            using (HMACSHA512 hmacHashGenerator = new HMACSHA512(APIKeyBytes))
             {
                 Byte[] messageToBeHashedBytes = Encoding.UTF8.GetBytes(messageToBeHashed);
                 Byte[] hashedMessageBytes = hmacHashGenerator.ComputeHash(messageToBeHashedBytes);
@@ -18,9 +18,13 @@
             }
 
             return hashText;
-        }    }'@function Get-HMACHash
-{
-    param([string] $hashKey, [string] $messageToBeHashed)
+        }
+    }
+'@
 
-    return [HMACHash]::ComputeHMACHash($hashKey, $messageToBeHashed)
+function Get-HMACHash
+{
+    param([string] $APIKey, [string] $messageToBeHashed)
+
+    return [HMACHash]::ComputeHMACHash($APIKey, $messageToBeHashed)
 }
