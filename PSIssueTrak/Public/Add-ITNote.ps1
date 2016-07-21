@@ -8,17 +8,27 @@ function Add-ITNote
                    ValueFromPipelineByPropertyName=$true,
                    Position=0)]
         [string]$IssueNumber,
+        
         [Parameter(Mandatory=$true)]
-        [string]$Note,
+        [string]$NoteText,
+        
         [Parameter(Mandatory=$false)]
         [string]$CreatedDate = [datetime]::UtcNow.ToString("O"),
+        
         [Parameter(Mandatory=$true)]
+        [ValidateScript({ if(Get-ITUser -UserID $_){ $true } })]
         [string]$CreatedBy,
+        
         [Parameter(Mandatory=$false)]
-        [string]$SuppressEmail = "false",
+        [ValidateSet("true","false")]
+        [string]$ShouldSuppressEmailForCreateOperation = "false",
+        
         [Parameter(Mandatory=$false)]
+        [ValidateSet("true","false")]
         [string]$IsPrivate = "false",
+
         [Parameter(Mandatory=$false)]
+        [ValidateSet("true","false")]
         [string]$IsRichText = "false"
     )
 
@@ -26,8 +36,8 @@ function Add-ITNote
         IssueNumber = $IssueNumber
         CreatedDate = "$CreatedDate"
         CreatedBy = "$CreatedBy"
-        ShouldSuppressEmailForCreateOperation = "$SuppressEmail"
-        NoteText = "$Note"
+        ShouldSuppressEmailForCreateOperation = "$ShouldSuppressEmailForCreateOperation"
+        NoteText = "$NoteText"
         IsPrivate = "$IsPrivate"
         IsRichText = "$IsRichText"
     }
@@ -38,11 +48,9 @@ function Add-ITNote
         Method = "POST"
     }
 
-
     $Results = Invoke-IssueTrakAPI @apiCall
 
     foreach ($Result in $Results) {
-        $Result
+        [PSCustomObject]@{NoteID=$Result}
     }
-
 }

@@ -1,4 +1,4 @@
-function Get-ITIssue
+function Get-ITUser
 {
     [CmdletBinding()]
     [Alias()]
@@ -7,12 +7,12 @@ function Get-ITIssue
         [Parameter(Mandatory=$true,
                    ValueFromPipelineByPropertyName=$true,
                    Position=0)]
-        [string]$IssueNumber
+        [string]$UserID
     )
 
     $apiCall = @{
         #Body = ""
-        RestMethod = "/api/v1/issues/true/$IssueNumber"
+        RestMethod = "/api/v1/users/$UserID/false"
         Method = "GET"
     }
 

@@ -39,14 +39,12 @@ function Invoke-IssueTrakAPI {
 
     $AuthHash = Get-HMACHash -APIKey $PSIssueTrakConfig.APIKey -messageToBeHashed $messageToBeHashed
 
-    
     $Headers.Add("X-Issuetrak-API-Request-ID", $GUID)
     $Headers.Add("X-Issuetrak-API-Timestamp", $Timestamp)
     $Headers.Add("X-Issuetrak-API-Authorization", $AuthHash)
 
     Write-Verbose -Message ('Headers are: {0}' -f $Headers)
     
-
     $ApiRequest = @{
         Headers = $Headers
         Uri = '{0}/{1}' -f $PSIssueTrakConfig.Uri,$RestMethod
