@@ -28,19 +28,19 @@ function New-ITIssue {
         [string]$IsDescriptionRichText="true",
         
         [Parameter(Mandatory=$true)]
-        [string]$IssueTypeID,
+        [string]$IssueTypeName,
         
         [Parameter(Mandatory=$false)]
-        [string]$IssueSubTypeID=0,
+        [string]$IssueSubTypeName=0,
         
         [Parameter(Mandatory=$false)]
-        [string]$IssueSubType2ID=0,
+        [string]$IssueSubType2Name=0,
         
         [Parameter(Mandatory=$false)]
-        [string]$IssueSubType3ID=0,
+        [string]$IssueSubType3Name=0,
         
         [Parameter(Mandatory=$false)]
-        [string]$IssueSubType4ID=0,
+        [string]$IssueSubType4Name=0,
         
         [Parameter(Mandatory=$false)]
         [string]$Priority="3 - Medium",

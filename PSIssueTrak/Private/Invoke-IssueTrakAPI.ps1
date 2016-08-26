@@ -26,7 +26,7 @@ function Invoke-IssueTrakAPI {
     )
 
     $GUID = (New-Guid).Guid
-    $Timestamp = [datetime]::UtcNow.ToString("O")
+    $Timestamp = [datetime]::UtcNow.AddSeconds(30).ToString("o")
 
     $messageToBeHashed="$Method`n"
     $messageToBeHashed+="$GUID`n"
